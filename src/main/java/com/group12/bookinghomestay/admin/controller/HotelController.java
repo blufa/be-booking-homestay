@@ -30,4 +30,19 @@ public class HotelController {
         hotelService.remove(id);
         return ResponseEntity.ok().build();
     }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/replaceHotel/{id}")
+    public Hotel replaceHotel(@RequestBody Hotel newHotel,@PathVariable Long id){
+        return hotelService.findById(id).map(hotel ->{
+            hotel.setName(newHotel.getName());
+            hotel.setOwnerId(newHotel.getOwnerId());
+            hotel.setPlaceId(newHotel.getPlaceId());
+            hotel.setInfo(newHotel.getInfo());
+            hotel.setPolicy(newHotel.getPolicy());
+            return hotelService.add(hotel);
+        }).orElseGet(()->{
+            newHotel.setId(id);
+            return hotelService.add(newHotel);
+        });
+    }
 }
