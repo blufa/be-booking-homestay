@@ -9,32 +9,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class OwnerController {
     @Autowired
     OwnerService ownerService;
-
+    private static final String PATH="/owner";
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getOwnerList")
+    @GetMapping(PATH)
     public List<Owner> getOwnerList() {
         return ownerService.findAll();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getOwner/{id}")
+    @GetMapping(PATH+"/{id}")
     public Owner getById(@PathVariable long id) {
         return ownerService.findById(id).get();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("addOwner")
+    @PostMapping(PATH)
     public ResponseEntity addOwner(@RequestBody Owner owner) {
         ownerService.add(owner);
         return ResponseEntity.ok().build();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("replaceOwner/{id}")
+    @PutMapping(PATH+"/{id}")
     public Owner replaceOwner(@RequestBody Owner newOwner, @PathVariable long id) {
         return ownerService.findById(id).map(owner -> {
             owner.setName(newOwner.getName());

@@ -11,36 +11,39 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class CustomerController {
+    private static final String PATH="/customer";
+
     @Autowired
     CustomerService customerService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getCustomerList")
-    public List<Customer> getOwnerList() {
+    @GetMapping(PATH)
+    public List<Customer> getCustomerList() {
         return customerService.findAll();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getCustomer/{id}")
+    @GetMapping(PATH+"/{id}")
     public Customer getById(@PathVariable long id) {
         return customerService.findById(id).get();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("addCustomer")
-    public ResponseEntity addOwner(@RequestBody Customer customer) {
+    @PostMapping(PATH)
+    public ResponseEntity addCustomer(@RequestBody Customer customer) {
         customerService.add(customer);
         return ResponseEntity.ok().build();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("replaceCustomer/{id}")
-    public Customer replaceOwner(@RequestBody Customer newCustomer, @PathVariable long id) {
+    @PutMapping(PATH+"/{id}")
+    public Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable long id) {
         return customerService.findById(id).map(cusomter -> {
             cusomter.setName(newCustomer.getName());
             cusomter.setUsername(newCustomer.getUsername());
+            cusomter.setEmail(newCustomer.getEmail());
             cusomter.setPhone(newCustomer.getPhone());
             cusomter.setCountry(newCustomer.getCountry());
             return cusomter;

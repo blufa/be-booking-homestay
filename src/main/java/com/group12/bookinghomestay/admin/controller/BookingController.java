@@ -10,32 +10,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class BookingController {
+    private static final String PATH="/booking";
     @Autowired
     BookingService bookingService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getBookingList")
+    @GetMapping(PATH)
     public List<Booking> getBookingList() {
         return bookingService.findAll();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getBooking/{id}")
+    @GetMapping(PATH+"/{id}")
     public Booking getById(@PathVariable long id) {
         return bookingService.findById(id).get();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("addBooking")
+    @PostMapping(PATH)
     public ResponseEntity addBooking(@RequestBody Booking booking) {
         bookingService.add(booking);
         return ResponseEntity.ok().build();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("replaceBooking/{id}")
+    @PutMapping(PATH+"/{id}")
     public Booking replaceOwner(@RequestBody Booking newBooking, @PathVariable long id) {
         return bookingService.findById(id).map(booking -> {
             booking.setCustomerId(newBooking.getCustomerId());

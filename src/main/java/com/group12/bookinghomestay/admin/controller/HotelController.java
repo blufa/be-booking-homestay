@@ -11,27 +11,28 @@ import java.util.List;
 @RestController
 //@RequestMapping("/api/v1")
 public class HotelController {
+    private static final String PATH="/hotel";
     @Autowired
     private HotelService hotelService;
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/hotelList")
+    @GetMapping(PATH)
     public List<Hotel> getHotelList() {
         return hotelService.findAll();
     }
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/addHotel")
+    @PostMapping(PATH)
     public ResponseEntity addHotel(@RequestBody Hotel hotel){
         hotelService.add(hotel);
         return ResponseEntity.ok().body(hotel);
     }
     @CrossOrigin(origins = "http://localhost:3000")
-    @DeleteMapping("/deleteHotel/{id}")
+    @DeleteMapping(PATH+"/{id}")
     public ResponseEntity  deleteHotel(@PathVariable(name = "id") Integer id){
         hotelService.remove(id);
         return ResponseEntity.ok().build();
     }
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("/replaceHotel/{id}")
+    @PutMapping(PATH+"/{id}")
     public Hotel replaceHotel(@RequestBody Hotel newHotel,@PathVariable Long id){
         return hotelService.findById(id).map(hotel ->{
             hotel.setName(newHotel.getName());
