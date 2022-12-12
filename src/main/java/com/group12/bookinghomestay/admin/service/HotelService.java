@@ -20,7 +20,7 @@ public class HotelService {
         return hotelRepository.save(hotel);
     }
     public void remove(int id){
-         hotelRepository.deleteById(Long.valueOf(id));
+        hotelRepository.deleteById(Long.valueOf(id));
     }
     public Optional<Hotel> findById(Long id){
         return hotelRepository.findById(id);

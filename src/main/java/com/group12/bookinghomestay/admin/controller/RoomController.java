@@ -35,7 +35,7 @@ public class RoomController {
     @PutMapping(PATH+"/{id}")
     public Room replaceRoom(@RequestBody Room newRoom,@PathVariable Long id){
         return roomService.findById(id).map(room ->{
-            room.setHotelId(newRoom.getHotelId());
+            room.setHotel(newRoom.getHotel());
             room.setAdult(newRoom.getAdult());
             room.setChildren(newRoom.getChildren());
             room.setTypeId(newRoom.getTypeId());

@@ -6,16 +6,19 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "owner")
-public class Owner {
+@Table(name = "place")
+public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String username;
-    private String name;
-    private String phone;
+    @Column(name = "id", nullable = false)
+    private Long id;
+    private String address;
+    private String district;
+    private String province;
+    private String country;
+
 }
