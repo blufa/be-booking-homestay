@@ -7,10 +7,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="booking")
+@Table(name = "booking")
 public class Booking {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long customerId;
     private long hotelId;
