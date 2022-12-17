@@ -1,11 +1,14 @@
 package com.group12.bookinghomestay.admin.model;
 
+import com.group12.bookinghomestay.client.model.Facility;
+import com.group12.bookinghomestay.client.model.RoomFacility;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -26,4 +29,10 @@ public class Room {
     private int status;
     private double price;
     private double discount;
+
+    @OneToMany
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private List<RoomFacility> facilities;
+
+
 }
