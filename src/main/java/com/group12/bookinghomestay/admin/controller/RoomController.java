@@ -13,11 +13,16 @@ import java.util.List;
 public class RoomController {
     @Autowired
     RoomService roomService;
-    private static final String PATH="/room";
+    private static final String PATH="/rooms";
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(PATH)
     public List<Room> getRoomList() {
         return roomService.findAll();
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(PATH+"/{id}/hotel")
+    public List<Room> getRoomListByHoteId(@PathVariable(name = "id") Integer id) {
+        return roomService.findByHotelId(id);
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(PATH)
@@ -38,7 +43,7 @@ public class RoomController {
             room.setHotel(newRoom.getHotel());
             room.setAdult(newRoom.getAdult());
             room.setChildren(newRoom.getChildren());
-            room.setTypeId(newRoom.getTypeId());
+            room.setRoomType(newRoom.getRoomType());
             room.setStatus(newRoom.getStatus());
             room.setPrice(newRoom.getPrice());
             room.setDiscount(newRoom.getDiscount());

@@ -1,12 +1,14 @@
 package com.group12.bookinghomestay.admin.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.group12.bookinghomestay.admin.model.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 @Data
 @Entity
@@ -23,12 +25,24 @@ public class Hotel {
     @JoinColumn(name = "owner_id")
     private Owner owner;
     @OneToOne
-    @JoinColumn(name="place_id")
+    @JoinColumn(name = "place_id")
     private Place place;
     private String info;
     private String policy;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Collection<Room> room;
+    private Collection<Room> rooms;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Collection<Comment> comments;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Collection<Image> images;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Collection<Review> reviews;
+
+    private Status status;
+    private Date dateUpdate;
 
 }
