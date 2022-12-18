@@ -1,10 +1,7 @@
 package com.group12.bookinghomestay.admin.controller;
 
 import com.group12.bookinghomestay.admin.model.Comment;
-import com.group12.bookinghomestay.admin.model.Report;
-import com.group12.bookinghomestay.admin.model.Room;
 import com.group12.bookinghomestay.admin.service.CommentService;
-import com.group12.bookinghomestay.admin.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

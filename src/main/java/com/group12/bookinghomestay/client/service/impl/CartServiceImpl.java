@@ -1,11 +1,11 @@
 package com.group12.bookinghomestay.client.service.impl;
 
 import com.group12.bookinghomestay.admin.model.Hotel;
+import com.group12.bookinghomestay.admin.service.HotelService;
 import com.group12.bookinghomestay.client.dto.CartResponse;
 import com.group12.bookinghomestay.client.model.Cart;
 import com.group12.bookinghomestay.client.repository.CartRepository;
 import com.group12.bookinghomestay.client.service.CartService;
-import com.group12.bookinghomestay.client.service.HotelClientService;
 import com.group12.bookinghomestay.client.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.TreeMap;
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired
-    private HotelClientService hotelClientService;
+    private HotelService hotelService;
     @Autowired
     private CartRepository repository;
 
@@ -26,10 +26,9 @@ public class CartServiceImpl implements CartService {
         //create new session record
         if (item.getSessionId().isEmpty()) {
             int maxId = repository.findAll().size();
-            System.out.println("duma" + maxId);
             item.setSessionId(MD5.getHashedString(String.valueOf(maxId + 1)));
-            Cart addedCart = repository.save(item);
-            return addedCart.getSessionId();
+            Cart addedItem = repository.save(item);
+            return addedItem.getSessionId();
         } else {
             //update to existed record
             Cart cart = repository.findCartItemByHotelId(item.getSessionId(), item.getHotelId());
@@ -48,7 +47,7 @@ public class CartServiceImpl implements CartService {
         if (items.size() > 0) {
             CartResponse res;
             for (Cart c : items) {
-                Optional<Hotel> hotel = hotelClientService.findById(Long.valueOf(c.getHotelId()));
+                Optional<Hotel> hotel = hotelService.findById(Long.valueOf(c.getHotelId()));
                 String from = c.getFromDate();
                 String to = c.getToDate();
                 int adult = c.getAdult();

@@ -1,5 +1,6 @@
 package com.group12.bookinghomestay.admin.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Voucher {
     private double rate;
     private String description;
     private int status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date expiredDate;
     private double minimumSpending;
 

@@ -1,8 +1,10 @@
 package com.group12.bookinghomestay.admin.controller;
 
 import com.group12.bookinghomestay.admin.model.Hotel;
+import com.group12.bookinghomestay.admin.model.Review;
 import com.group12.bookinghomestay.admin.service.HotelService;
 import com.group12.bookinghomestay.admin.service.mapper.HotelMapper;
+import com.group12.bookinghomestay.client.dto.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class HotelController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping(value=PATH + "/{id}", consumes={"application/json"})
+    @PutMapping(value = PATH + "/{id}", consumes = {"application/json"})
     public Hotel replaceHotel(@RequestBody Hotel newHotel, @PathVariable("id") Long id) {
         return hotelService.findById(id).map(hotel -> {
             hotel.setName(newHotel.getName());
@@ -58,5 +60,11 @@ public class HotelController {
             newHotel.setId(id);
             return hotelService.save(newHotel);
         });
+    }
+
+    @GetMapping(PATH + "/findHotelGood")
+    @CrossOrigin("*")
+    public List<Hotel> findHotelGood() {
+        return hotelService.findGoodHotelList();
     }
 }

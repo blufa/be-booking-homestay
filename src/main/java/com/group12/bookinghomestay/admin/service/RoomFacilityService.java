@@ -17,4 +17,10 @@ public class RoomFacilityService {
     public List<RoomFacility> listRoomFacilityByRoomId(int roomId){
         return roomFacilityRepository.listRoomFacilityByRoomId(roomId);
     }
+    public void remove(int id) {
+        roomFacilityRepository.deleteById(Long.valueOf(id));
+    }
+    public void removeRoomFacility(int facilityId,int roomId){
+        roomFacilityRepository.deleteRoomFacility(facilityId,roomId);
+    }
 }

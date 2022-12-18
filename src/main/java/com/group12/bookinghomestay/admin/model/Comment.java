@@ -5,9 +5,11 @@ import com.group12.bookinghomestay.admin.model.enums.DeleteStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +18,7 @@ import javax.persistence.*;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @ManyToOne
@@ -26,6 +28,11 @@ public class Comment {
     private String username;
     private String comment;
     private DeleteStatus status;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
     public Long getId() {
         return id;
     }
