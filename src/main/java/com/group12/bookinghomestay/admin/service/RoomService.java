@@ -16,7 +16,10 @@ public class RoomService {
     public List<Room> findAll() {
         return roomRepository.findAll();
     }
-    public Room add(Room room){
+    public List<Room> findByHotelId(int id) {
+        return roomRepository.listRoomByHotelId(id);
+    }
+    public Room save(Room room){
         return roomRepository.save(room);
     }
     public void remove(int id){

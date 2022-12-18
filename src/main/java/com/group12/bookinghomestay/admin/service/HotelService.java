@@ -16,11 +16,12 @@ public class HotelService {
     public List<Hotel> findAll() {
         return hotelRepository.findAll();
     }
-    public Hotel add(Hotel hotel){
-        return hotelRepository.save(hotel);
-    }
+
     public void remove(int id){
-         hotelRepository.deleteById(Long.valueOf(id));
+        hotelRepository.deleteById(Long.valueOf(id));
+    }
+    public Hotel save(Hotel hotel){
+        return hotelRepository.save(hotel);
     }
     public Optional<Hotel> findById(Long id){
         return hotelRepository.findById(id);

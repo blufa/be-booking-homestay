@@ -1,22 +1,25 @@
 package com.group12.bookinghomestay.admin.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "owner")
-public class Owner implements Serializable {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String username;
-    private String name;
-    private String phone;
+    @Column( nullable = false)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    @JsonBackReference
+    private Hotel hotel;
+    private String image;
+
 }

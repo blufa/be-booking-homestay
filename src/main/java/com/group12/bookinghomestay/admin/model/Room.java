@@ -1,38 +1,39 @@
 package com.group12.bookinghomestay.admin.model;
 
-import com.group12.bookinghomestay.client.model.Facility;
-import com.group12.bookinghomestay.client.model.RoomFacility;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.group12.bookinghomestay.admin.model.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Collection;
 
 @Data
-@AllArgsConstructor
-@ToString
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "hotel_id")
-    private long hotelId;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    @JsonBackReference
+    private Hotel hotel;
     private int adult;
     private int children;
-    private int typeId;
-    private int status;
+
+    @OneToOne
+    @JoinColumn(name = "type_id")
+    private RoomType roomType;
+    private Status status;
     private double price;
     private double discount;
-
-    @OneToMany
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private List<RoomFacility> facilities;
-
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Collection<RoomFacility> roomFacilities;
 
 }

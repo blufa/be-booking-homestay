@@ -39,9 +39,9 @@ public class BookingController {
     @PutMapping(PATH+"/{id}")
     public Booking replaceOwner(@RequestBody Booking newBooking, @PathVariable long id) {
         return bookingService.findById(id).map(booking -> {
-            booking.setCustomerId(newBooking.getCustomerId());
-            booking.setRoomId(newBooking.getRoomId());
-            booking.setHotelId(newBooking.getHotelId());
+            booking.setCustomer(newBooking.getCustomer());
+            booking.setRoom(newBooking.getRoom());
+            booking.setHotel(newBooking.getHotel());
             booking.setDateCheckin(newBooking.getDateCheckin());
             booking.setDateCheckout(newBooking.getDateCheckout());
             booking.setVoucherId(newBooking.getVoucherId());

@@ -5,18 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "owner")
-public class Owner implements Serializable {
+public class RoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String username;
+    @Column(nullable = false)
+    private Long id;
     private String name;
-    private String phone;
+    private String description;
+
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-    private static final String PATH="/customer";
+    private static final String PATH="/customers";
 
     @Autowired
     CustomerService customerService;

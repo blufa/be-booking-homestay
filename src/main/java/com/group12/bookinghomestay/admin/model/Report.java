@@ -1,22 +1,25 @@
 package com.group12.bookinghomestay.admin.model;
 
+import com.group12.bookinghomestay.admin.model.enums.DeleteStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "owner")
-public class Owner implements Serializable {
+public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id", nullable = false)
+    private Long id;
+    private String content;
+    private String context;
     private String username;
-    private String name;
-    private String phone;
+    private DeleteStatus status;
+
+
 }

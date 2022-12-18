@@ -13,16 +13,21 @@ import java.util.List;
 public class RoomController {
     @Autowired
     RoomService roomService;
-    private static final String PATH="/room";
+    private static final String PATH="/rooms";
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(PATH)
     public List<Room> getRoomList() {
         return roomService.findAll();
     }
     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(PATH+"/{id}/hotel")
+    public List<Room> getRoomListByHoteId(@PathVariable(name = "id") Integer id) {
+        return roomService.findByHotelId(id);
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(PATH)
     public ResponseEntity addRoom(@RequestBody Room room){
-        roomService.add(room);
+        roomService.save(room);
         return ResponseEntity.ok().body(room);
     }
     @CrossOrigin(origins = "http://localhost:3000")
@@ -35,17 +40,15 @@ public class RoomController {
     @PutMapping(PATH+"/{id}")
     public Room replaceRoom(@RequestBody Room newRoom,@PathVariable Long id){
         return roomService.findById(id).map(room ->{
-            room.setHotelId(newRoom.getHotelId());
             room.setAdult(newRoom.getAdult());
             room.setChildren(newRoom.getChildren());
-            room.setTypeId(newRoom.getTypeId());
             room.setStatus(newRoom.getStatus());
             room.setPrice(newRoom.getPrice());
             room.setDiscount(newRoom.getDiscount());
-            return roomService.add(room);
+            return roomService.save(room);
         }).orElseGet(()->{
             newRoom.setId(id);
-            return roomService.add(newRoom);
+            return roomService.save(newRoom);
         });
     }
 }

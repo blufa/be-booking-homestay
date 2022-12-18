@@ -5,18 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.sql.Date;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "owner")
-public class Owner implements Serializable {
+public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String username;
-    private String name;
-    private String phone;
+    @Column(name = "id", nullable = false)
+    private Long id;
+    private double rate;
+    private String description;
+    private int status;
+    private Date expiredDate;
+    private double minimumSpending;
+
 }
