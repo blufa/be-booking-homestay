@@ -1,5 +1,6 @@
 package com.group12.bookinghomestay.client.dto;
 
+import com.group12.bookinghomestay.admin.model.Hotel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class HotelResponse {
-    private long id;
-    private String name;
-    private double price;
-    private double discount;
-    private String province;
-    private double rating;
-    private String image;
+    private Hotel hotel;
+    private double rate;
 }
