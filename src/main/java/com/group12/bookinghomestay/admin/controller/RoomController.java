@@ -27,7 +27,7 @@ public class RoomController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(PATH)
     public ResponseEntity addRoom(@RequestBody Room room){
-        roomService.add(room);
+        roomService.save(room);
         return ResponseEntity.ok().body(room);
     }
     @CrossOrigin(origins = "http://localhost:3000")
@@ -40,17 +40,15 @@ public class RoomController {
     @PutMapping(PATH+"/{id}")
     public Room replaceRoom(@RequestBody Room newRoom,@PathVariable Long id){
         return roomService.findById(id).map(room ->{
-            room.setHotel(newRoom.getHotel());
             room.setAdult(newRoom.getAdult());
             room.setChildren(newRoom.getChildren());
-            room.setRoomType(newRoom.getRoomType());
             room.setStatus(newRoom.getStatus());
             room.setPrice(newRoom.getPrice());
             room.setDiscount(newRoom.getDiscount());
-            return roomService.add(room);
+            return roomService.save(room);
         }).orElseGet(()->{
             newRoom.setId(id);
-            return roomService.add(newRoom);
+            return roomService.save(newRoom);
         });
     }
 }

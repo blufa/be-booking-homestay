@@ -20,9 +20,4 @@ public class Facility {
     private String name;
     private String type;
     private String description;
-    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Collection<RoomFacility> roomFacilities;
-
-
 }

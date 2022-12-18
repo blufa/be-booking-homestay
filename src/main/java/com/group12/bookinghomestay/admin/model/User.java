@@ -28,7 +28,7 @@ public class User {
     private String providerType;
     private Status active;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
     private Collection<Review> reviews;
 
 

@@ -21,7 +21,7 @@ public class OwnerService {
         return ownerRepository.findById(id);
     }
 
-    public Owner add(Owner owner) {
+    public Owner save(Owner owner) {
         return ownerRepository.save(owner);
     }
 

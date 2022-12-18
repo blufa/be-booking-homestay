@@ -30,18 +30,18 @@ public class Hotel {
     private String info;
     private String policy;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
     private Collection<Room> rooms;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
     private Collection<Comment> comments;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
     private Collection<Image> images;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value="hotel-review")
     private Collection<Review> reviews;
-
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
     private Date dateUpdate;
 

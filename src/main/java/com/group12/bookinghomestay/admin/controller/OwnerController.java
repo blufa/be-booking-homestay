@@ -29,7 +29,7 @@ public class OwnerController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(PATH)
     public ResponseEntity addOwner(@RequestBody Owner owner) {
-        ownerService.add(owner);
+        ownerService.save(owner);
         return ResponseEntity.ok().build();
     }
 
@@ -40,10 +40,10 @@ public class OwnerController {
             owner.setName(newOwner.getName());
             owner.setUsername(newOwner.getUsername());
             owner.setPhone(newOwner.getPhone());
-            return owner;
+            return ownerService.save(owner);
         }).orElseGet(() -> {
             newOwner.setId(id);
-            return newOwner;
+            return ownerService.save(newOwner);
         });
     }
 }
