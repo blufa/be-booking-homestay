@@ -1,22 +1,24 @@
-package com.group12.bookinghomestay.admin.model;
+package com.group12.bookinghomestay.client.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "owner")
-public class Owner implements Serializable {
+@ToString
+@Entity
+@Table(name = "review")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
+    private int hotelId;
     private String username;
-    private String name;
-    private String phone;
+    private int rate;
+    private String content;
 }
