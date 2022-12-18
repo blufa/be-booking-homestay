@@ -2,6 +2,7 @@ package com.group12.bookinghomestay.admin.service;
 
 import com.group12.bookinghomestay.admin.model.Hotel;
 import com.group12.bookinghomestay.admin.repository.HotelRepository;
+import com.group12.bookinghomestay.client.dto.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +18,19 @@ public class HotelService {
         return hotelRepository.findAll();
     }
 
-    public void remove(int id){
+    public void remove(int id) {
         hotelRepository.deleteById(Long.valueOf(id));
     }
-    public Hotel save(Hotel hotel){
+
+    public Hotel save(Hotel hotel) {
         return hotelRepository.save(hotel);
     }
-    public Optional<Hotel> findById(Long id){
+
+    public Optional<Hotel> findById(Long id) {
         return hotelRepository.findById(id);
+    }
+
+    public List<HotelResponse> findGoodHotelList() {
+        return hotelRepository.getHotelHasGoodRating();
     }
 }
