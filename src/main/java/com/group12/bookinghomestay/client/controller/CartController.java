@@ -1,7 +1,7 @@
 package com.group12.bookinghomestay.client.controller;
 
-import com.group12.bookinghomestay.client.dto.CartRequest;
 import com.group12.bookinghomestay.client.dto.CartResponse;
+import com.group12.bookinghomestay.client.model.Cart;
 import com.group12.bookinghomestay.client.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,23 +15,28 @@ public class CartController {
     @Autowired
     CartService service;
 
-    @GetMapping("/cart")
-    public TreeMap<Integer, CartResponse> getCartItems() {
-        return service.getCartItems();
-    }
-
-    @PostMapping("/addToCart")
-    public ResponseEntity addToCart(@RequestBody CartRequest item) throws Exception {
+    @PostMapping("/addToCart1")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity addToCart1(@RequestBody Cart item) throws Exception {
         try {
-            service.addToCart(item);
-            return ResponseEntity.ok().build();
+            System.out.println("received item from controller" + item.toString());
+            String sessionId = service.addNewCart(item);
+            return ResponseEntity.status(HttpStatus.OK).body(sessionId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This item is already in cart !");
         }
     }
 
-    @DeleteMapping("/cart/delete/{id}")
-    public boolean removeItemFromCart(@PathVariable(name = "id") Integer id) {
-        return service.removeItemFromCart(id);
+    @GetMapping("/cart/{sessionId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public TreeMap<Integer, CartResponse> getCartItems1(@PathVariable("sessionId") String sessionId) {
+        return service.getCartItems(sessionId);
     }
+
+    @DeleteMapping("/cart/delete/{id}/{hotelId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public boolean removeItemFromCart(@PathVariable(name = "id") String sessionId, @PathVariable(name = "hotelId") Integer id) {
+        return service.removeItemFromCart(sessionId, id);
+    }
+
 }

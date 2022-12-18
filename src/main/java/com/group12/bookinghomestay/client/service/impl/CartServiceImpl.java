@@ -1,16 +1,16 @@
 package com.group12.bookinghomestay.client.service.impl;
 
 import com.group12.bookinghomestay.admin.model.Hotel;
-import com.group12.bookinghomestay.client.dto.CartRequest;
 import com.group12.bookinghomestay.client.dto.CartResponse;
+import com.group12.bookinghomestay.client.model.Cart;
+import com.group12.bookinghomestay.client.repository.CartRepository;
 import com.group12.bookinghomestay.client.service.CartService;
 import com.group12.bookinghomestay.client.service.HotelClientService;
-import org.springframework.beans.factory.ObjectFactory;
+import com.group12.bookinghomestay.client.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
 
@@ -19,54 +19,52 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private HotelClientService hotelClientService;
     @Autowired
-    ObjectFactory<HttpSession> sessionFactory;
+    private CartRepository repository;
 
     @Override
-    public boolean addToCart(CartRequest item) throws Exception {
-        TreeMap<Integer, CartRequest> sessionCart = (TreeMap<Integer, CartRequest>) sessionFactory.getObject().getAttribute("cart");
-        if (sessionCart != null) {
-            if (sessionCart.containsKey(item.getHotelId())) {
-                throw new Exception("This item is already in cart");
-            } else {
-                sessionCart.put(item.getHotelId(), item);
-                sessionFactory.getObject().setAttribute("cart", sessionCart);
-                return true;
-            }
+    public String addNewCart(Cart item) throws Exception {
+        //create new session record
+        if (item.getSessionId().isEmpty()) {
+            int maxId = repository.findAll().size();
+            System.out.println("duma" + maxId);
+            item.setSessionId(MD5.getHashedString(String.valueOf(maxId + 1)));
+            Cart addedCart = repository.save(item);
+            return addedCart.getSessionId();
         } else {
-            sessionCart = new TreeMap<>();
-            sessionCart.put(item.getHotelId(), item);
-            sessionFactory.getObject().setAttribute("cart", sessionCart);
-            return true;
+            //update to existed record
+            Cart cart = repository.findCartItemByHotelId(item.getSessionId(), item.getHotelId());
+            if (cart != null) {
+                throw new Exception("This item is already in cart !");
+            }
+            repository.save(item);
+            return item.getSessionId();
         }
     }
 
     @Override
-    public TreeMap<Integer, CartResponse> getCartItems() {
+    public TreeMap<Integer, CartResponse> getCartItems(String id) {
         TreeMap<Integer, CartResponse> re = new TreeMap<>();
-        TreeMap<Integer, CartRequest> sessionCart = (TreeMap<Integer, CartRequest>) sessionFactory.getObject().getAttribute("cart");
-        if (sessionCart != null) {
+        List<Cart> items = repository.findAllBySessionId(id);
+        if (items.size() > 0) {
             CartResponse res;
-            for (Map.Entry<Integer, CartRequest> entry : sessionCart.entrySet()) {
-                int hotelId = entry.getKey();
-                CartRequest cartRequest = entry.getValue();
-                Optional<Hotel> hotel = hotelClientService.findById(Long.valueOf(hotelId));
-                String from = cartRequest.getFrom();
-                String to = cartRequest.getTo();
-                int adult = cartRequest.getAdult();
-                int children = cartRequest.getChildren();
+            for (Cart c : items) {
+                Optional<Hotel> hotel = hotelClientService.findById(Long.valueOf(c.getHotelId()));
+                String from = c.getFromDate();
+                String to = c.getToDate();
+                int adult = c.getAdult();
+                int children = c.getChildren();
                 res = new CartResponse(hotel.get(), from, to, adult, children);
-                re.put(hotelId, res);
+                re.put(c.getHotelId(), res);
             }
         }
         return re;
     }
 
     @Override
-    public boolean removeItemFromCart(Integer id) {
-        TreeMap<Integer, CartRequest> sessionCart = (TreeMap<Integer, CartRequest>) sessionFactory.getObject().getAttribute("cart");
-        if (sessionCart.containsKey(id)) {
-            sessionCart.remove(id);
-            sessionFactory.getObject().setAttribute("cart", sessionCart);
+    public boolean removeItemFromCart(String sessionId, int hotelId) {
+        Cart c = repository.findCartItemByHotelId(sessionId, hotelId);
+        if (c != null) {
+            repository.delete(c);
             return true;
         }
         return false;
