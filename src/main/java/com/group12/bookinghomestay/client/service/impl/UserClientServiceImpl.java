@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserClientServiceImpl implements UserClientService {
@@ -23,5 +24,23 @@ public class UserClientServiceImpl implements UserClientService {
         return userRepository.findAll();
     }
 
+    @Override
+    public Optional<UserClient> getUserById(int id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public UserClient getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<UserClient> getListUserByEmail(String email) {
+        return userRepository.findAllByEmail(email);
+    }
+
+    public void sendMail(){
+
+    }
 
 }

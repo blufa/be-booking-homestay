@@ -5,8 +5,10 @@ import javax.persistence.*;
 
 @Entity
 public class UserClient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String username;
     private String password;
     private String email;
@@ -14,7 +16,6 @@ public class UserClient {
     private String token;
     private String providerKey;
     private String providerType;
-    private int id;
     private int active;
 
     public UserClient(){
@@ -29,7 +30,6 @@ public class UserClient {
         this.token = token;
         this.providerKey = providerKey;
         this.providerType = providerType;
-        this.id = id;
         this.active = active;
     }
 
@@ -103,5 +103,20 @@ public class UserClient {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return "UserClient{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", token='" + token + '\'' +
+                ", providerKey='" + providerKey + '\'' +
+                ", providerType='" + providerType + '\'' +
+                ", id=" + id +
+                ", active=" + active +
+                '}';
     }
 }

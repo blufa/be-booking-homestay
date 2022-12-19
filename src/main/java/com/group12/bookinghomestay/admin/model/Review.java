@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -14,16 +15,16 @@ import javax.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( nullable = false)
+    @Column(nullable = false)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    @JsonBackReference(value="hotel-review")
+    @JsonBackReference(value = "hotel-review")
     private Hotel hotel;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference(value="user-review")
+    @JsonBackReference(value = "user-review")
     private User user;
     private double rate;
     private String content;
