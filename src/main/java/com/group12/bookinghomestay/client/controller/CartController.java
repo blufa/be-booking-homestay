@@ -15,9 +15,9 @@ public class CartController {
     @Autowired
     CartService service;
 
-    @PostMapping("/addToCart1")
+    @PostMapping("/addToCart")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity addToCart1(@RequestBody Cart item) throws Exception {
+    public ResponseEntity addToCart(@RequestBody Cart item) throws Exception {
         try {
             System.out.println("received item from controller" + item.toString());
             String sessionId = service.addNewCart(item);
@@ -29,7 +29,7 @@ public class CartController {
 
     @GetMapping("/cart/{sessionId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public TreeMap<Integer, CartResponse> getCartItems1(@PathVariable("sessionId") String sessionId) {
+    public TreeMap<Integer, CartResponse> getCartItems(@PathVariable("sessionId") String sessionId) {
         return service.getCartItems(sessionId);
     }
 
