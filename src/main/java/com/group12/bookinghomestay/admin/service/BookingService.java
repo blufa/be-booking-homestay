@@ -45,4 +45,8 @@ public class BookingService {
         booking.setCustomer(c);
         return bookingRepository.save(booking);
     }
+
+    public List<Booking> getBookingHistory(Long customerId) {
+        return bookingRepository.getBookingHistory(customerId);
+    }
 }

@@ -14,4 +14,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query(value = "from Booking where hotel.id = ?1 and current_date < dateCheckout")
     List<Booking> getReservedListByHotel(Long hotelId);
+    @Query("from Booking where customer.id = ?1")
+    List<Booking> getBookingHistory(Long customerId);
 }

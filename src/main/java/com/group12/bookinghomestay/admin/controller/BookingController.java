@@ -71,5 +71,11 @@ public class BookingController {
         return bookingService.saveBookingByClient(booking);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(PATH + "/getBookingHistory/{id}")
+    public List<Booking> getBookingHistory(@PathVariable("id") Long id) {
+        return bookingService.getBookingHistory(id);
+    }
+
 
 }
