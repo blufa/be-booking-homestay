@@ -1,6 +1,8 @@
 package com.group12.bookinghomestay.admin.model;
 
+import com.group12.bookinghomestay.admin.model.enums.BookingStatus;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.cache.CacheType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,4 +30,6 @@ public class Booking {
     private Date dateCheckin;
     private Date dateCheckout;
     private long voucherId;
+    @Enumerated(EnumType.ORDINAL)
+    private BookingStatus status;
 }
