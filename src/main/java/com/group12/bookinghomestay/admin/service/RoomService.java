@@ -28,4 +28,7 @@ public class RoomService {
     public Optional<Room> findById(Long id){
         return roomRepository.findById(id);
     }
+    public List<Room> findAvailableRoom(Long id){
+        return roomRepository.getAvailableRooms(id);
+    }
 }
