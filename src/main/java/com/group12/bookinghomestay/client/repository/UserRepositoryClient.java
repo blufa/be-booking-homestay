@@ -22,4 +22,8 @@ public interface UserRepositoryClient extends JpaRepository<UserClient,Integer> 
     @Query("SELECT u FROM UserClient u WHERE u.username = ?1")
     public List<UserClient> getAllByUserName(String username);
 
+    //get User by Token
+    @Query("SELECT u FROM UserClient u WHERE u.token = ?1")
+    public UserClient getUserByToken(String token);
+
 }

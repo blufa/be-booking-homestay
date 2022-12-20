@@ -9,8 +9,8 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Table(name = "owner")
 public class Owner implements Serializable {
     @Id
@@ -19,4 +19,14 @@ public class Owner implements Serializable {
     private String username;
     private String name;
     private String phone;
+
+    public Owner( String username, String name, String phone) {
+        this.username = username;
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public Owner() {
+
+    }
 }
