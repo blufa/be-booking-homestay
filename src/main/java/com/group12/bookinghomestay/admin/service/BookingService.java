@@ -49,4 +49,12 @@ public class BookingService {
     public List<Booking> getBookingHistory(Long customerId) {
         return bookingRepository.getBookingHistory(customerId);
     }
+
+    public List<Booking> getBookingHistoryByUsername(String username) {
+        return bookingRepository.getBookingHistoryByUsername(username);
+    }
+
+    public List<Booking> getBookingHistoryByEmail(String input) {
+        return bookingRepository.getBookingHistoryByEmail(input);
+    }
 }
