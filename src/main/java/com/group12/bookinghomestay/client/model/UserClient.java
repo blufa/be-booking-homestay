@@ -19,10 +19,9 @@ public class UserClient {
     private int active;
 
     public UserClient(){
-
     }
 
-    public UserClient(String username, String password, String email, int role, String token, String providerKey, String providerType, int id, int active) {
+    public UserClient(String username, String password, String email, int role, String token, String providerKey, String providerType,  int active) {
         this.username = username;
         this.password = password;
         this.email = email;

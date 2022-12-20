@@ -16,4 +16,10 @@ public interface UserRepositoryClient extends JpaRepository<UserClient,Integer> 
     @Query("SELECT u FROM UserClient u WHERE u.email = ?1")
     public List<UserClient> findAllByEmail(String email);
 
+    @Query("SELECT u FROM UserClient u WHERE u.username = ?1")
+    public UserClient getUserByUserName(String username);
+
+    @Query("SELECT u FROM UserClient u WHERE u.username = ?1")
+    public List<UserClient> getAllByUserName(String username);
+
 }

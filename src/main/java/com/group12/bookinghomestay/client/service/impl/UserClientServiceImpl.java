@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class UserClientServiceImpl implements UserClientService {
 
@@ -39,8 +38,15 @@ public class UserClientServiceImpl implements UserClientService {
         return userRepository.findAllByEmail(email);
     }
 
-    public void sendMail(){
-
+    @Override
+    public UserClient getUserByUserName(String username) {
+        return userRepository.getUserByUserName(username);
     }
+
+    @Override
+    public List<UserClient> getAllUserByUserName(String username) {
+        return userRepository.getAllByUserName(username);
+    }
+
 
 }

@@ -11,4 +11,6 @@ public interface UserClientService {
     public Optional<UserClient> getUserById(int id);
     public UserClient getUserByEmail(String email);
     public List<UserClient> getListUserByEmail(String Email);
+    public UserClient getUserByUserName(String username);
+    public List<UserClient> getAllUserByUserName(String username);
 }

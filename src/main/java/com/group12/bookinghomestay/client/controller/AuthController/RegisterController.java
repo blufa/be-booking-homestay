@@ -1,11 +1,15 @@
 package com.group12.bookinghomestay.client.controller.AuthController;
 
+
+import com.group12.bookinghomestay.client.dto.UserDto;
 import com.group12.bookinghomestay.client.model.ResponseObject;
 import com.group12.bookinghomestay.client.model.UserClient;
 import com.group12.bookinghomestay.client.service.UserClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,18 +20,16 @@ import java.util.Optional;
 @CrossOrigin
 public class RegisterController {
 
+
     @Autowired
     private UserClientService userService;
+
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
 
     @PostMapping("/add")
     public String add(@RequestBody UserClient user){
         userService.saveUser(user);
         return "new user is added";
-    }
-
-    @GetMapping("/getAll")
-    public List<UserClient> list(){
-        return userService.getAllUsers();
     }
 
     @GetMapping("/findById/{id}")
@@ -45,16 +47,33 @@ public class RegisterController {
         }
     }
     @PostMapping("/insert")
-    ResponseEntity<ResponseObject> insertUser(@RequestBody UserClient user){
-        List<UserClient> foundUserExist = userService.getListUserByEmail(user.getEmail());
+    ResponseEntity<ResponseObject> insertUser(@RequestBody UserDto userDto){
+        List<UserClient> foundUserExist = userService.getListUserByEmail(userDto.getEmail());
+        List<UserClient> foundUserNameExist = userService.getAllUserByUserName(userDto.getUserName());
         if(foundUserExist.size()>0){
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                     new ResponseObject("fail","user email duplicate","")
             );
         }
-
+        if(foundUserNameExist.size()>0){
+            new ResponseObject("fail","user name is duplicate","");
+        }
+        int role=0;
+        String token = KeyGenerators.string().generateKey();
+        String provideKey= KeyGenerators.string().generateKey();
+        String provideType= KeyGenerators.string().generateKey();
+        int active = 0;
+        UserClient newUser = new UserClient(
+                userDto.getUserName()
+                , encoder.encode(userDto.getPassword())
+                , userDto.getEmail()
+                ,role
+                ,token
+                ,provideKey
+                ,provideType
+                ,active);
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok","insert user success",userService.saveUser(user))
+                new ResponseObject("ok","insert user success",userService.saveUser(newUser))
         );
     }
 
@@ -90,4 +109,19 @@ public class RegisterController {
                 new ResponseObject("ok","update account infomation sucess",updateUser)
         );
     }
+
+    @GetMapping("/login/{username}&{password}")
+     public UserClient checkLogin(@PathVariable String username,@PathVariable String password){
+        UserClient user = userService.getUserByUserName(username);
+        if (user == null){
+            return null;
+        }
+        else{
+            if(encoder.matches(password,user.getPassword())){
+                return user;
+            }
+            return null;
+        }
+    }
+
 }
