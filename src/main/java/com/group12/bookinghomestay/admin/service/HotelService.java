@@ -6,7 +6,6 @@ import com.group12.bookinghomestay.admin.repository.HotelRepository;
 import com.group12.bookinghomestay.admin.repository.ReviewRepository;
 import com.group12.bookinghomestay.client.dto.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,6 +42,15 @@ public class HotelService {
             re.add(r.getHotel());
         }
         return re;
+    }
+    public List<String[]> getTotalMoneyEachDateByHotelId(Integer id){
+        return hotelRepository.getTotalMoneyEachDateByHotelId(id);
+    }
+    public List<String[]> getTotalMoneyEachMonthAdmin(){
+        return hotelRepository.getTotalMoneyEachMonthAdmin();
+    }
+    public List<String[]> getTotalMoneyEachDayAdmin(){
+        return hotelRepository.getTotalMoneyEachDayAdmin();
     }
 
     public List<Hotel> getHotelListDiscount() {
