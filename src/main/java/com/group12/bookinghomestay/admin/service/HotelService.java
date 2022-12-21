@@ -43,4 +43,8 @@ public class HotelService {
         }
         return re;
     }
+
+    public List<Hotel> getHotelListDiscount() {
+        return hotelRepository.getHotelListDiscount();
+    }
 }

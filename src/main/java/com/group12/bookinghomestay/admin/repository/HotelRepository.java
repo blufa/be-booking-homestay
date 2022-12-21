@@ -11,4 +11,8 @@ import java.util.List;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
+    @Query("from Hotel a join Room b\n" +
+            "on a.id = b.hotel.id\n" +
+            "where b.discount > 0 order by b.discount desc")
+    List<Hotel> getHotelListDiscount();
 }

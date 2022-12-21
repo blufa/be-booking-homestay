@@ -67,4 +67,10 @@ public class HotelController {
     public List<Hotel> findHotelGood() {
         return hotelService.findGoodHotelList();
     }
+
+    @GetMapping(PATH + "/getHotelListDiscount")
+    @CrossOrigin("*")
+    public List<Hotel> getHotelListDiscount() {
+        return hotelService.getHotelListDiscount();
+    }
 }
