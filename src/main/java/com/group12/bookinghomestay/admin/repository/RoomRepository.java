@@ -14,6 +14,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     @Query("from Room a join Booking b\n" +
             "on a.hotel.id = b.hotel.id and a.id=b.room.id\n" +
-            "where a.hotel.id = ?1 and current_date < b.dateCheckout")
+            "where a.hotel.id = ?1 and current_date < b.dateCheckout and a.hotel.status=1")
     List<Room> getAvailableRooms(Long id);
 }

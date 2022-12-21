@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    @Query(value = "from Booking where hotel.id = ?1 and room.id = ?2 and current_date < dateCheckout")
+    @Query(value = "from Booking where hotel.id = ?1 and room.id = ?2 and current_date < dateCheckout and hotel.status=1")
     List<Booking> getReservedList(Long hotelId, Long roomId);
 
     @Query(value = "from Booking where hotel.id = ?1 and current_date < dateCheckout")
