@@ -71,13 +71,14 @@ public class RegisterController {
             );
         }
         if(foundUserNameExist.size()>0){
-            new ResponseObject("fail","user name is duplicate","");
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new ResponseObject("fail","user email duplicate","")
+            );
         }
         int role=0;
         String token = KeyGenerators.string().generateKey();
-        String provideKey= KeyGenerators.string().generateKey();
-        String provideType= KeyGenerators.string().generateKey();
-        long id = 1;
+        String provideKey= "";
+        String provideType= "";
         int active = 0;
         UserClient newUser = new UserClient(
                 userDto.getUsername()
@@ -175,8 +176,8 @@ public class RegisterController {
         }
     }
     //send link to reset account
-    @PostMapping("/updateAccount/")
-    ResponseEntity<ResponseObject> forgetAccount(@PathVariable String email){
+    @PostMapping("/forgotAccount/{email}")
+    ResponseEntity<ResponseObject> forgotAccount(@PathVariable String email){
         UserClient user = userService.getUserByEmail(email);
         if(user == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
@@ -186,7 +187,7 @@ public class RegisterController {
         else{
             //send email
             String Subject ="this is active account email";
-            String body = "please confirm to complete change password : localhost:8080/user/setAccount/"+user.getToken();
+            String body = "please confirm to complete change password : http://localhost:3000/user/setAccount/"+user.getToken();
             emailService.sendSimpleEmail(user.getEmail(),body,Subject);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("ok","send email success",user)
