@@ -6,6 +6,7 @@ import com.group12.bookinghomestay.admin.repository.HotelRepository;
 import com.group12.bookinghomestay.admin.repository.ReviewRepository;
 import com.group12.bookinghomestay.client.dto.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,5 +47,17 @@ public class HotelService {
 
     public List<Hotel> getHotelListDiscount() {
         return hotelRepository.getHotelListDiscount();
+    }
+
+    public List<Hotel> searchHotelByDateAndPeople(String dateCheckout,
+                                                  String dateCheckin,
+                                                  int adult,
+                                                  int children,
+                                                  String location) {
+        return hotelRepository.searchHotelByDateAndPeople(dateCheckout,
+                dateCheckin,
+                adult,
+                children,
+                location);
     }
 }
