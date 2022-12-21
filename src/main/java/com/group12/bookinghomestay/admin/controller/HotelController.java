@@ -83,4 +83,10 @@ public class HotelController {
                 children,
                 location);
     }
+
+    @GetMapping(PATH + "/findHotelGood/{location}")
+    @CrossOrigin("*")
+    public List<Hotel> getGoodHotelByLocation(@PathVariable("location") String location) {
+        return hotelService.getGoodHotelListByLocation(location);
+    }
 }

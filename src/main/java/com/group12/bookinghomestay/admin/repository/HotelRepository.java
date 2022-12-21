@@ -32,8 +32,22 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "where DATE(:dateCheckout) > c.date_checkout \n" +
             "and DATE(:dateCheckin) > c.date_checkin and a.status = 1\n" +
             "and b.adult > :adult and b.children > :children\n" +
-            "and POSITION(:location in concat(address,district,province,country))", nativeQuery = true)
+            "and POSITION(:location in concat(address,' ' ,district,' ',province,' ',country))", nativeQuery = true)
     List<Hotel> searchHotelByDateAndPeople(@Param("dateCheckout") String dateCheckout, @Param("dateCheckin") String dateCheckin,
                                            @Param("adult") int adult, @Param("children") int children,
                                            @Param("location") String location);
+
+    @Query(value = "select distinct a.*\n" +
+            "from Hotel a join Room b\n" +
+            "on a.id = b.hotel_id\n" +
+            "join Booking c\n" +
+            "on b.id=c.room_id\n" +
+            "join place d on a.place_id = d.id\n" +
+            "join review e on e.hotel_id = a.id\n" +
+            "where NOW() > c.date_checkout \n" +
+            "and NOW() > c.date_checkin and a.status = 1\n" +
+            "and POSITION(:location in concat(address,' ' ,district,' ',province,' ',country))\n" +
+            "group by a.id\n" +
+            "having avg(rate) > 3", nativeQuery = true)
+    List<Hotel> getGoodHotelListByLocation(@Param("location") String location);
 }

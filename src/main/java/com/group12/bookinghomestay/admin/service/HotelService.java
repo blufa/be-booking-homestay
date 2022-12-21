@@ -49,15 +49,11 @@ public class HotelService {
         return hotelRepository.getHotelListDiscount();
     }
 
-    public List<Hotel> searchHotelByDateAndPeople(String dateCheckout,
-                                                  String dateCheckin,
-                                                  int adult,
-                                                  int children,
-                                                  String location) {
-        return hotelRepository.searchHotelByDateAndPeople(dateCheckout,
-                dateCheckin,
-                adult,
-                children,
-                location);
+    public List<Hotel> searchHotelByDateAndPeople(String dateCheckout, String dateCheckin, int adult, int children, String location) {
+        return hotelRepository.searchHotelByDateAndPeople(dateCheckout, dateCheckin, adult, children, location);
+    }
+
+    public List<Hotel> getGoodHotelListByLocation(String location) {
+        return hotelRepository.getGoodHotelListByLocation(location);
     }
 }
