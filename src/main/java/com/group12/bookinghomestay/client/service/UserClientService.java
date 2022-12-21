@@ -13,4 +13,6 @@ public interface UserClientService {
     public List<UserClient> getListUserByEmail(String Email);
     public UserClient getUserByUserName(String username);
     public List<UserClient> getAllUserByUserName(String username);
+    public UserClient getUserByToken(String token);
+
 }
