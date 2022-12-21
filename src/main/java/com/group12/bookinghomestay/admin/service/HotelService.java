@@ -1,5 +1,6 @@
 package com.group12.bookinghomestay.admin.service;
 
+import com.group12.bookinghomestay.admin.model.DashBoardMonth;
 import com.group12.bookinghomestay.admin.model.Hotel;
 import com.group12.bookinghomestay.admin.model.Review;
 import com.group12.bookinghomestay.admin.repository.HotelRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -42,5 +44,14 @@ public class HotelService {
             re.add(r.getHotel());
         }
         return re;
+    }
+    public List<String[]> getTotalMoneyEachDateByHotelId(Integer id){
+        return hotelRepository.getTotalMoneyEachDateByHotelId(id);
+    }
+    public List<String[]> getTotalMoneyEachMonthAdmin(){
+        return hotelRepository.getTotalMoneyEachMonthAdmin();
+    }
+    public List<String[]> getTotalMoneyEachDayAdmin(){
+        return hotelRepository.getTotalMoneyEachDayAdmin();
     }
 }
