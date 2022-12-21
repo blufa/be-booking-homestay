@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
-public interface CommentRepository extends JpaRepository<Comment,Long> {
-    @Query(value = "select * from comment r where r.hotel_id = ?1", nativeQuery = true)
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    @Query("from Comment where hotel.id = ?1")
     List<Comment> listCommentByHotelId(int hotelId);
 }

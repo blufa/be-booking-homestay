@@ -1,4 +1,5 @@
 package com.group12.bookinghomestay.client.service.impl;
+import com.group12.bookinghomestay.admin.model.User;
 import com.group12.bookinghomestay.client.model.UserClient;
 import com.group12.bookinghomestay.client.repository.UserRepositoryClient;
 import com.group12.bookinghomestay.client.service.UserClientService;
@@ -46,6 +47,12 @@ public class UserClientServiceImpl implements UserClientService {
     @Override
     public List<UserClient> getAllUserByUserName(String username) {
         return userRepository.getAllByUserName(username);
+    }
+
+
+    @Override
+    public UserClient getUserByToken(String token) {
+        return userRepository.getUserByToken(token);
     }
 
 

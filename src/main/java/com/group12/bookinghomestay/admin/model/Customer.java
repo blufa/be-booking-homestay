@@ -16,4 +16,16 @@ public class Customer {
     private String name;
     private String country;
     private String phone;
+
+    public Customer(String username, String email, String name, String country, String phone) {
+        this.username = username;
+        this.email = email;
+        this.name = name;
+        this.country = country;
+        this.phone = phone;
+    }
+
+    public Customer() {
+
+    }
 }

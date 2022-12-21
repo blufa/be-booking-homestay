@@ -77,5 +77,17 @@ public class BookingController {
         return bookingService.getBookingHistory(id);
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping(PATH + "/getBookingHistoryByUsername/{username}")
+    public List<Booking> getBookingHistoryByUsername(@PathVariable("username") String username) {
+        return bookingService.getBookingHistoryByUsername(username);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping(PATH + "/getBookingHistoryByEmail/{email}")
+    public List<Booking> getBookingHistoryByEmail(@PathVariable("email") String email) {
+        return bookingService.getBookingHistoryByEmail(email);
+    }
+
 
 }
