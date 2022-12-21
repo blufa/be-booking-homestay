@@ -1,5 +1,6 @@
 package com.group12.bookinghomestay.admin.controller;
 
+import com.group12.bookinghomestay.admin.model.DashBoardMonth;
 import com.group12.bookinghomestay.admin.model.Hotel;
 import com.group12.bookinghomestay.admin.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //@RequestMapping("/api/v1")
@@ -57,7 +59,21 @@ public class HotelController {
             return hotelService.save(newHotel);
         });
     }
-
+    @GetMapping(PATH + "/analyzeHotel/{id}")
+    @CrossOrigin("*")
+    public List<String[]> getAnalizeByHotelId(@PathVariable("id") Integer id) {
+        return hotelService.getTotalMoneyEachDateByHotelId(id);
+    }
+    @GetMapping(PATH + "/analyzeAdmin")
+    @CrossOrigin("*")
+    public List<String[]> getAnalizeAdmin() {
+        return hotelService.getTotalMoneyEachMonthAdmin();
+    }
+    @GetMapping(PATH + "/analyzeAdminPie")
+    @CrossOrigin("*")
+    public List<String[]> getAnalizeAdminPie() {
+        return hotelService.getTotalMoneyEachDayAdmin();
+    }
     @GetMapping(PATH + "/findHotelGood")
     @CrossOrigin("*")
     public List<Hotel> findHotelGood() {
