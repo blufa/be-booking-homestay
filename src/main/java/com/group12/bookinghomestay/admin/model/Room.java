@@ -23,17 +23,29 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     @JsonBackReference
     private Hotel hotel;
+    //private int hotel_id;
     private int adult;
     private int children;
-
+    //private int type_id;
+    private int status;
+    private double price;
+    private double discount;
     @OneToOne
     @JoinColumn(name = "type_id")
     private RoomType roomType;
-    private Status status;
-    private double price;
-    private double discount;
+
+
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Collection<RoomFacility> roomFacilities;
 
+    public Room(Hotel hotel, int adult, int children, int status, double price, double discount, RoomType roomType) {
+        this.hotel = hotel;
+        this.adult = adult;
+        this.children = children;
+        this.status = status;
+        this.price = price;
+        this.discount = discount;
+        this.roomType = roomType;
+    }
 }

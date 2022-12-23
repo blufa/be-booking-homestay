@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 
 public interface OwnerClientService {
     public Owner saveOwner(Owner owner);
+    public Owner getOwnerByUserName(String username);
 }

@@ -34,7 +34,14 @@ public class UploadFileController {
             );
         }
     }
-
+    public String UFile(@RequestParam("file") MultipartFile file){
+        try{
+            String generatedFileName = storageService.storeFile(file);
+            return generatedFileName;
+        }catch (Exception exception){
+            return null;
+        }
+    }
     @GetMapping("/files/{fileName:.+}")
     public ResponseEntity<byte[]> readDetailsFile(@PathVariable String fileName){
         try{

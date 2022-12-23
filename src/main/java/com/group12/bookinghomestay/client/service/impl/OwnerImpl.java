@@ -14,4 +14,10 @@ public class OwnerImpl implements OwnerClientService {
     public Owner saveOwner(Owner owner) {
         return ownerRepository.save(owner);
     }
+
+    @Override
+    public Owner getOwnerByUserName(String username) {
+        return ownerRepository.getOwnerByUserName(username);
+    }
+
 }
