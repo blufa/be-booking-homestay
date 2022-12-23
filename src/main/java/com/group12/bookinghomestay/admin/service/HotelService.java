@@ -43,4 +43,25 @@ public class HotelService {
         }
         return re;
     }
+    public List<String[]> getTotalMoneyEachDateByHotelId(Integer id){
+        return hotelRepository.getTotalMoneyEachDateByHotelId(id);
+    }
+    public List<String[]> getTotalMoneyEachMonthAdmin(){
+        return hotelRepository.getTotalMoneyEachMonthAdmin();
+    }
+    public List<String[]> getTotalMoneyEachDayAdmin(){
+        return hotelRepository.getTotalMoneyEachDayAdmin();
+    }
+
+    public List<Hotel> getHotelListDiscount() {
+        return hotelRepository.getHotelListDiscount();
+    }
+
+    public List<Hotel> searchHotelByDateAndPeople(String dateCheckout, String dateCheckin, int adult, int children, String location) {
+        return hotelRepository.searchHotelByDateAndPeople(dateCheckout, dateCheckin, adult, children, location);
+    }
+
+    public List<Hotel> getGoodHotelListByLocation(String location) {
+        return hotelRepository.getGoodHotelListByLocation(location);
+    }
 }

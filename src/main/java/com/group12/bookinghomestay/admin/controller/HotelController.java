@@ -1,16 +1,14 @@
 package com.group12.bookinghomestay.admin.controller;
 
+import com.group12.bookinghomestay.admin.model.DashBoardMonth;
 import com.group12.bookinghomestay.admin.model.Hotel;
-import com.group12.bookinghomestay.admin.model.Review;
 import com.group12.bookinghomestay.admin.service.HotelService;
-import com.group12.bookinghomestay.admin.service.mapper.HotelMapper;
-import com.group12.bookinghomestay.client.dto.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //@RequestMapping("/api/v1")
@@ -61,10 +59,50 @@ public class HotelController {
             return hotelService.save(newHotel);
         });
     }
-
+    @GetMapping(PATH + "/analyzeHotel/{id}")
+    @CrossOrigin("*")
+    public List<String[]> getAnalizeByHotelId(@PathVariable("id") Integer id) {
+        return hotelService.getTotalMoneyEachDateByHotelId(id);
+    }
+    @GetMapping(PATH + "/analyzeAdmin")
+    @CrossOrigin("*")
+    public List<String[]> getAnalizeAdmin() {
+        return hotelService.getTotalMoneyEachMonthAdmin();
+    }
+    @GetMapping(PATH + "/analyzeAdminPie")
+    @CrossOrigin("*")
+    public List<String[]> getAnalizeAdminPie() {
+        return hotelService.getTotalMoneyEachDayAdmin();
+    }
     @GetMapping(PATH + "/findHotelGood")
     @CrossOrigin("*")
     public List<Hotel> findHotelGood() {
         return hotelService.findGoodHotelList();
+    }
+
+    @GetMapping(PATH + "/getHotelListDiscount")
+    @CrossOrigin("*")
+    public List<Hotel> getHotelListDiscount() {
+        return hotelService.getHotelListDiscount();
+    }
+
+    @GetMapping(PATH + "/search/{dateCheckout}&{dateCheckin}&{adult}&{children}&{location}")
+    @CrossOrigin("*")
+    public List<Hotel> searchByParam(@PathVariable("dateCheckout") String dateCheckout,
+                                     @PathVariable("dateCheckin") String dateCheckin,
+                                     @PathVariable("adult") int adult,
+                                     @PathVariable("children") int children,
+                                     @PathVariable("location") String location) {
+        return hotelService.searchHotelByDateAndPeople(dateCheckout,
+                dateCheckin,
+                adult,
+                children,
+                location);
+    }
+
+    @GetMapping(PATH + "/findHotelGood/{location}")
+    @CrossOrigin("*")
+    public List<Hotel> getGoodHotelByLocation(@PathVariable("location") String location) {
+        return hotelService.getGoodHotelListByLocation(location);
     }
 }

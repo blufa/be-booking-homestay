@@ -17,9 +17,6 @@ public class Report {
     @Column(name = "id", nullable = false)
     private Long id;
     private String content;
-    private String context;
     private String username;
     private DeleteStatus status;
-
-
 }

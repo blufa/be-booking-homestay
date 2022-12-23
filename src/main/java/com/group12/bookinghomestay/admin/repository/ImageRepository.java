@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ImageRepository  extends JpaRepository<Image,Long> {
-    @Query(value = "select * from Image r where r.hotel_id = ?1", nativeQuery = true)
+    @Query(value = "from Image where hotel.id = ?1")
     List<Image> listImageByHotelId(int hotelId);
 }

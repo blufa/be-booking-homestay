@@ -4,6 +4,7 @@ import com.group12.bookinghomestay.admin.model.Booking;
 import com.group12.bookinghomestay.admin.model.Customer;
 import com.group12.bookinghomestay.admin.repository.BookingRepository;
 import com.group12.bookinghomestay.admin.repository.CustomerRepository;
+import com.group12.bookinghomestay.client.service.EmaiService.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class BookingService {
     private BookingRepository bookingRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private EmailSenderService emailService;
 
     public List<Booking> findAll() {
         return bookingRepository.findAll();
@@ -43,6 +46,31 @@ public class BookingService {
             c = customerRepository.save(booking.getCustomer());
         }
         booking.setCustomer(c);
-        return bookingRepository.save(booking);
+        Booking savedBooking = bookingRepository.save(booking);
+        if (savedBooking != null) {
+            String toEmail = c.getEmail();
+            String subject = "Booking information";
+            String body = "Hi, " + c.getName() + "\n" + "Thanks for choosing us ! This email sent to you to announce that you have booked successfully ! Please check your information below if there was mistake please contact with us :\n" +
+                    "- Booking id : " + savedBooking.getId() + "\n" +
+                    "- Hotel : " + savedBooking.getHotel().getName() + "\n" +
+                    "- Checkin date : " + savedBooking.getDateCheckin() + "\n" +
+                    "- Checkout date : " + savedBooking.getDateCheckout() + "\n" +
+                    "- Price : " + savedBooking.getRoom().getPrice() + "\n" +
+                    "- Status : " + savedBooking.getStatus();
+            emailService.sendSimpleEmail(toEmail, body, subject);
+        }
+        return savedBooking;
+    }
+
+    public List<Booking> getBookingHistory(Long customerId) {
+        return bookingRepository.getBookingHistory(customerId);
+    }
+
+    public List<Booking> getBookingHistoryByUsername(String username) {
+        return bookingRepository.getBookingHistoryByUsername(username);
+    }
+
+    public List<Booking> getBookingHistoryByEmail(String input) {
+        return bookingRepository.getBookingHistoryByEmail(input);
     }
 }
