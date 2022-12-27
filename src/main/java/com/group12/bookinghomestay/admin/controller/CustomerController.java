@@ -42,7 +42,7 @@ public class CustomerController {
     public Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable long id) {
         return customerService.findById(id).map(cusomter -> {
             cusomter.setName(newCustomer.getName());
-            cusomter.setUsername(newCustomer.getUsername());
+            cusomter.setUser(newCustomer.getUser());
             cusomter.setEmail(newCustomer.getEmail());
             cusomter.setPhone(newCustomer.getPhone());
             cusomter.setCountry(newCustomer.getCountry());

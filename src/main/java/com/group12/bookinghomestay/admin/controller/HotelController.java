@@ -17,33 +17,33 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @GetMapping(PATH)
     public List<Hotel> getHotelList() {
         return hotelService.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @GetMapping(PATH + "/{id}")
     public Hotel getHotelById(@PathVariable(name = "id") Long id) {
         return hotelService.findById(id).get();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @PostMapping(PATH)
     public ResponseEntity addHotel(@RequestBody Hotel hotel) {
         hotelService.save(hotel);
         return ResponseEntity.ok().body(hotel);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @DeleteMapping(PATH + "/{id}")
     public ResponseEntity deleteHotel(@PathVariable(name = "id") Integer id) {
         hotelService.remove(id);
         return ResponseEntity.ok().build();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @PutMapping(value = PATH + "/{id}", consumes = {"application/json"})
     public Hotel replaceHotel(@RequestBody Hotel newHotel, @PathVariable("id") Long id) {
         return hotelService.findById(id).map(hotel -> {

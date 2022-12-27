@@ -14,9 +14,8 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Voucher {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
     private double rate;
     private String description;
     private int status;

@@ -15,14 +15,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             "where b.discount > 0 and a.status=1 order by b.discount desc")
     List<Hotel> getHotelListDiscount();
 
-    //    @Query("from Hotel a join Room b\n" +
-//            "on a.id = b.hotel.id\n" +
-//            "join Booking c\n" +
-//            "on b.id = c.room.id\n" +
-//            "join Place d on a.id = d.id\n" +
-//            "where DATE(?1) > c.dateCheckin \n" +
-//            "and DATE(?2) > c.dateCheckout and a.status = 1\n" +
-//            "and b.adult > ?3 and b.children > ?4 and d.province ")
     @Query(value = "select distinct a.*\n" +
             "from Hotel a join Room b\n" +
             "on a.id = b.hotel_id\n" +

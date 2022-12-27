@@ -22,18 +22,18 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(PATH + "/{id}")
-    public User getUserById(@PathVariable(name = "id") Long id) {
+    public User getUserById(@PathVariable(name = "id") String id) {
         return userService.findById(id).get();
     }
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(value = PATH + "/{id}", consumes = {"application/json"})
-    public User replaceUser(@RequestBody User newUser, @PathVariable("id") Long id) {
-        return userService.findById(id).map(user -> {
+    public User replaceUser(@RequestBody User newUser, @PathVariable("id") String username) {
+        return userService.findById(username).map(user -> {
             user.setRole(newUser.getRole());
             user.setActive(newUser.getActive());
             return userService.save(user);
         }).orElseGet(() -> {
-            newUser.setId(id);
+            newUser.setUsername(username);
             return userService.save(newUser);
         });
     }

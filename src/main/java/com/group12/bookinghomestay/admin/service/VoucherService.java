@@ -20,7 +20,7 @@ public class VoucherService {
         return voucherRepository.save(voucher);
     }
 
-    public Optional<Voucher> findById(Long id) {
+    public Optional<Voucher> findById(String id) {
         return voucherRepository.findById(id);
     }
 }

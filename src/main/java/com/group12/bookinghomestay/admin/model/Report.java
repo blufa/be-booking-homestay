@@ -17,6 +17,8 @@ public class Report {
     @Column(name = "id", nullable = false)
     private Long id;
     private String content;
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User user;
     private DeleteStatus status;
 }
