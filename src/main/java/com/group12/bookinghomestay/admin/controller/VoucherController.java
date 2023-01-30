@@ -11,22 +11,25 @@ import java.util.List;
 
 @RestController
 public class VoucherController {
-    private static final String PATH="/vouchers";
+    private static final String PATH = "/vouchers";
     @Autowired
     private VoucherService voucherService;
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(PATH)
     public List<Voucher> getRoomList() {
         return voucherService.findAll();
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(PATH + "/{id}")
-    public Voucher getVoucherById(@PathVariable(name = "id") Long id) {
+    public Voucher getVoucherById(@PathVariable(name = "id") String id) {
         return voucherService.findById(id).get();
     }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(value = PATH + "/{id}", consumes = {"application/json"})
-    public Voucher replaceVoucher(@RequestBody Voucher newVoucher, @PathVariable("id") Long id) {
+    public Voucher replaceVoucher(@RequestBody Voucher newVoucher, @PathVariable("id") String id) {
         return voucherService.findById(id).map(voucher -> {
             voucher.setDescription(newVoucher.getDescription());
             voucher.setExpiredDate(newVoucher.getExpiredDate());

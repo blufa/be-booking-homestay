@@ -21,8 +21,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("from Booking a join Customer b\n" +
             "on a.customer.id = b.id\n" +
             "join User c \n" +
-            "on b.username = c.username\n" +
-            "where b.username = ?1")
+            "on b.user.username = c.username\n" +
+            "where b.user.username = ?1")
     List<Booking> getBookingHistoryByUsername(String username);
 
     @Query("from Booking a join Customer b\n" +

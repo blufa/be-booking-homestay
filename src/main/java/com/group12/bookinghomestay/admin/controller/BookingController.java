@@ -17,26 +17,26 @@ public class BookingController {
     @Autowired
     BookingService bookingService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @GetMapping(PATH)
     public List<Booking> getBookingList() {
         return bookingService.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @GetMapping(PATH + "/{id}")
     public Booking getById(@PathVariable long id) {
         return bookingService.findById(id).get();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @PostMapping(PATH)
     public ResponseEntity addBooking(@RequestBody Booking booking) {
         bookingService.add(booking);
         return ResponseEntity.ok().build();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "*")
     @PutMapping(PATH + "/{id}")
     public Booking replaceOwner(@RequestBody Booking newBooking, @PathVariable long id) {
         return bookingService.findById(id).map(booking -> {

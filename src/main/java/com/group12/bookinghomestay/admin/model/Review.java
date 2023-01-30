@@ -23,7 +23,7 @@ public class Review {
     private Hotel hotel;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonBackReference(value = "user-review")
     private User user;
     private double rate;
