@@ -1,4 +1,4 @@
-package com.group12.bookinghomestay.client.dto;
+package com.group12.bookinghomestay.client.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -14,9 +14,10 @@ public class UserController {
     private static final String PATH="/users";
     @Autowired
     private UserService userService;
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(PATH)
-    public List<User> getRoomList() {
+    public List<User> getUserList() {
         return userService.findAll();
     }
 

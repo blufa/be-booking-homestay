@@ -5,7 +5,7 @@ import com.group12.bookinghomestay.admin.model.User;
 import com.group12.bookinghomestay.admin.model.enums.UserStatus;
 import com.group12.bookinghomestay.client.repository.UserRepositoryClient;
 import com.group12.bookinghomestay.client.service.CustomerClientService;
-import com.group12.bookinghomestay.client.service.EmaiService.EmailSenderService;
+import com.group12.bookinghomestay.client.service.EmailService.EmailSenderService;
 import com.group12.bookinghomestay.client.service.UserClientService;
 import com.group12.bookinghomestay.client.utils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
