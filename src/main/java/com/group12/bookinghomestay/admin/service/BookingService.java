@@ -4,7 +4,7 @@ import com.group12.bookinghomestay.admin.model.Booking;
 import com.group12.bookinghomestay.admin.model.Customer;
 import com.group12.bookinghomestay.admin.repository.BookingRepository;
 import com.group12.bookinghomestay.admin.repository.CustomerRepository;
-import com.group12.bookinghomestay.client.service.EmaiService.EmailSenderService;
+import com.group12.bookinghomestay.client.service.EmailService.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

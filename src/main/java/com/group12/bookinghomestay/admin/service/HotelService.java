@@ -4,7 +4,6 @@ import com.group12.bookinghomestay.admin.model.Hotel;
 import com.group12.bookinghomestay.admin.model.Review;
 import com.group12.bookinghomestay.admin.repository.HotelRepository;
 import com.group12.bookinghomestay.admin.repository.ReviewRepository;
-import com.group12.bookinghomestay.client.dto.HotelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

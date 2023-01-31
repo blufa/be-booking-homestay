@@ -1,4 +1,4 @@
-package com.group12.bookinghomestay.client.dto;
+package com.group12.bookinghomestay.client.dto.request;
 
 import com.group12.bookinghomestay.admin.model.Hotel;
 import lombok.AllArgsConstructor;

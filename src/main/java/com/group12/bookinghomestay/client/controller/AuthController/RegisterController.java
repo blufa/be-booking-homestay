@@ -2,30 +2,20 @@ package com.group12.bookinghomestay.client.controller.AuthController;
 
 
 import com.group12.bookinghomestay.admin.model.Customer;
-import com.group12.bookinghomestay.admin.model.User;
-import com.group12.bookinghomestay.client.service.EmaiService.EmailSenderService;
 import com.group12.bookinghomestay.client.service.UserClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/user")
-@CrossOrigin
+@RequestMapping("/api/v1/register")
+@CrossOrigin("*")
 public class RegisterController {
     @Autowired
     UserClientService userService;
 
-    @GetMapping("/findAll")
-    @CrossOrigin("*")
-    public List<User> findAll() {
-        return userService.findAll();
-    }
-
-    @PostMapping("/register")
+    @PostMapping("")
     @CrossOrigin("*")
     public ResponseEntity saveCustomer(@RequestBody Customer customer) {
         try {
@@ -46,4 +36,5 @@ public class RegisterController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
 }

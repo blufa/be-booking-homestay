@@ -1,6 +1,6 @@
 package com.group12.bookinghomestay.client.controller;
 
-import com.group12.bookinghomestay.client.dto.CartResponse;
+import com.group12.bookinghomestay.client.dto.response.CartResponse;
 import com.group12.bookinghomestay.client.model.Cart;
 import com.group12.bookinghomestay.client.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;

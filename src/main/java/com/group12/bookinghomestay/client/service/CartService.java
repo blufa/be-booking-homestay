@@ -1,6 +1,6 @@
 package com.group12.bookinghomestay.client.service;
 
-import com.group12.bookinghomestay.client.dto.CartResponse;
+import com.group12.bookinghomestay.client.dto.response.CartResponse;
 import com.group12.bookinghomestay.client.model.Cart;
 
 import java.util.TreeMap;
