@@ -1,8 +1,10 @@
 package com.group12.bookinghomestay.utils;
 
+import com.group12.bookinghomestay.admin.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,8 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtils {
-    private final String jwtSigningKey = "SIGNED_BY_GOTRIP";
+    @Value("${jwt.signing.key}")
+    private String jwtSigningKey;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -42,19 +45,20 @@ public class JwtUtils {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails);
-    }
-
-    public String generateToken(UserDetails userDetails, Map<String, Object> claims) {
-        return createToken(claims, userDetails);
+    public String generateToken(User user) {
+        HashMap extraClaims = new HashMap();
+        extraClaims.put("email", user.getEmail());
+        extraClaims.put("authorities", user.getAuthorities());
+        extraClaims.put("credentialsNonExpired", user.isCredentialsNonExpired());
+        extraClaims.put("accountIsEnabled", user.isEnabled());
+        extraClaims.put("accountNonLocked", user.isAccountNonLocked());
+        return createToken(extraClaims, user);
     }
 
     private String createToken(Map<String, Object> claims, UserDetails userDetails) {
         return Jwts.builder().setClaims(claims)
                 .setSubject(userDetails.getUsername())
-                .claim("authorities", userDetails.getAuthorities())
+                .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
                 .signWith(SignatureAlgorithm.HS256, jwtSigningKey).compact();
