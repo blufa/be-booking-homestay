@@ -24,10 +24,7 @@ public class LoginController {
     @PostMapping("")
     public ResponseEntity<String> login(@RequestBody UserRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        final UserDetails userDetails = userService.findUserDetails(request.getUsername());
-        if (userDetails != null) {
-            return ResponseEntity.ok().body(jwtUtils.generateToken(userDetails));
-        }
-        return ResponseEntity.badRequest().body("Username or password is invalid");
+        var user = userService.findById(request.getUsername()).orElseThrow();
+        return ResponseEntity.ok().body(jwtUtils.generateToken(user));
     }
 }
